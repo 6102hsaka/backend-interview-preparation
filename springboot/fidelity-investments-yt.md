@@ -55,3 +55,25 @@ spring.main.allow-bean-definition-overriding=true
 ⚠️ Dangerous and discouraged in production.
 
 ### Q. How to create a custom starter in Spring Boot?
+
+### Q. If service A calls service B, how would you optimize API calls?
+1. Reduce the Number of calls
+  - API Aggregation (Club multiple requests into a single request)
+```
+/users/profile
+/users/orders
+
+/users/profile-with-orders
+```
+  - Batch Request
+```
+POST /users/batch
+{
+  "ids": [1,2,3,4,5]
+}
+```
+2. Parallel and async call
+3. Use message queues if immediate responses are not required.
+4. Cache response in Service A
+5. Use gRPC instead of REST for interservice communication.
+6. HTTP Connection Pooling: Reuse HTTP connections, avoiding TCP + TLS handshake costs.
